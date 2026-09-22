@@ -1,88 +1,312 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-br">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="UTF-8">
 
-    <title>{{ config('app.name', 'Almoxarifado') }} - Gestão de Ferramentas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Bootstrap 5 CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <title>
+        {{ $title ?? 'Controle de Estoque' }}
+    </title>
 
-    <!-- Livewire Styles -->
+    {{-- BOOTSTRAP --}}
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    {{-- BOOTSTRAP ICONS --}}
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
     @livewireStyles
 </head>
-<body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar do Sistema -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-tools text-warning me-2"></i>Almoxarifado
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href=""><i class="bi bi-house-door me-1"></i> Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-box-seam me-1"></i> Ferramentas / Materiais</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="movimentacao/create"><i class="bi bi-arrow-left-right me-1"></i> Empréstimos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-people me-1"></i> Colaboradores</a>
-                    </li>
-                </ul>
+<body class="bg-light">
 
-                <!-- Botões de Ação Rápida (Cadastros) -->
-                <div class="d-flex flex-wrap gap-2 me-lg-3 my-2 my-lg-0">
-                    <a href="produto/create" class="btn btn-warning btn-sm fw-bold">
-                        <i class="bi bi-plus-lg me-1"></i> Cadastrar Material
-                    </a>
-                    <a href="#" class="btn btn-outline-light btn-sm fw-bold">
-                        <i class="bi bi-person-plus-fill me-1"></i> Cadastrar Colaborador
-                    </a>
+    {{-- NAVBAR - NÃO APARECE NO LOGIN --}}
+    @if (!request()->routeIs('login'))
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info shadow-sm">
+
+            <div class="container">
+
+                {{-- NOME DO SISTEMA --}}
+                <a
+                    class="navbar-brand text-black fw-bold"
+                    href="{{ route('dashboard') }}"
+                >
+                    <i class="bi bi-box-seam me-2"></i>
+                    Controle de Estoque
+                </a>
+
+
+                {{-- BOTÃO MOBILE --}}
+                <button
+                    class="navbar-toggler "
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarPrincipal"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarPrincipal"
+                >
+
+                    {{-- MENU ESQUERDA --}}
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        {{-- DASHBOARD --}}
+                        <li class="nav-item">
+
+                            <a
+                                class="nav-link text-black {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                                href="{{ route('dashboard') }}"
+                            >
+                                <i class="bi bi-speedometer2 me-1"></i>
+                                Dashboard
+                            </a>
+
+                        </li>
+
+
+                        {{-- PRODUTOS --}}
+                        <li class="nav-item dropdown">
+
+                            <a
+                                class="nav-link dropdown-toggle text-black {{ request()->routeIs('produto.*') ? 'active' : '' }}"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                <i class="bi bi-box me-1"></i>
+                                Produtos
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{{ route('produto.index') }}"
+                                    >
+                                        <i class="bi bi-list me-2"></i>
+                                        Listar Produtos
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{{ route('produto.create') }}"
+                                    >
+                                        <i class="bi bi-plus-circle me-2"></i>
+                                        Novo Produto
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                        {{-- CARACTERÍSTICAS --}}
+                        <li class="nav-item dropdown">
+
+                            <a
+                                class="nav-link dropdown-toggle text-black {{ request()->routeIs('caracteristica.*') ? 'active' : '' }}"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                <i class="bi bi-tags me-1"></i>
+                                Características
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{{ route('caracteristica.create') }}"
+                                    >
+                                        <i class="bi bi-plus-circle me-2"></i>
+                                        Nova Característica
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{{ route('caracteristica.create') }}"
+                                    >
+                                        <i class="bi bi-list me-2"></i>
+                                        Listar Características
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                        {{-- MOVIMENTAÇÕES --}}
+                        <li class="nav-item dropdown">
+
+                            <a
+                                class="nav-link dropdown-toggle text-black {{ request()->routeIs('movimentacao.*') ? 'active' : '' }}"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                <i class="bi bi-arrow-left-right me-1"></i>
+                                Movimentações
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{{ route('movimentacao.index') }}"
+                                    >
+                                        <i class="bi bi-clock-history me-2"></i>
+                                        Histórico
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{{ route('movimentacao.create') }}"
+                                    >
+                                        <i class="bi bi-plus-circle me-2"></i>
+                                        Nova Movimentação
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+
+
+                    {{-- USUÁRIO --}}
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item dropdown">
+
+                            <a
+                                class="nav-link dropdown-toggle text-black"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                <i class="bi bi-person-circle me-1"></i>
+
+                                @auth
+                                    {{ auth()->user()->name }}
+                                @else
+                                    Usuário
+                                @endauth
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+
+                                @auth
+
+                                    <li>
+                                        <span class="dropdown-item-text">
+                                            <small class="text-muted">
+                                                Logado como
+                                            </small>
+
+                                            <br>
+
+                                            <strong>
+                                                {{ auth()->user()->email }}
+                                            </strong>
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    {{-- LOGOUT --}}
+                                    <li>
+
+                                        <form
+                                            method="POST"
+                                            action="{{ route('logout') }}"
+                                        >
+
+                                            @csrf
+
+                                            <button
+                                                type="submit"
+                                                class="dropdown-item text-danger"
+                                            >
+                                                <i class="bi bi-box-arrow-right me-2"></i>
+                                                Sair
+                                            </button>
+
+                                        </form>
+
+                                    </li>
+
+                                @endauth
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+
                 </div>
 
-                <span class="navbar-text text-light border-start ps-lg-3">
-                    <i class="bi bi-person-circle me-1"></i> Operador
-                </span>
             </div>
-        </div>
-    </nav>
 
-    <!-- Conteúdo Principal -->
-    <main class="container my-4 flex-grow-1">
-        @if (session()->has('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i> {{ session('message') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </nav>
+
+    @endif
+
+
+    {{-- CONTEÚDO DAS PÁGINAS --}}
+    <main>
+
+        @if (!request()->routeIs('login'))
+
+            <div class="container py-4">
+
+                {{ $slot }}
+
             </div>
+
+        @else
+
+            {{ $slot }}
+
         @endif
 
-        {{ $slot }}
     </main>
 
-    <!-- Rodapé -->
-    <footer class="bg-white text-center text-muted py-3 border-top mt-auto">
-        <div class="container">
-            <small>&copy; {{ date('Y') }} Sistema de Almoxarifado de Ferramentas.</small>
-        </div>
-    </footer>
 
-    <!-- Bootstrap 5 JS Bundle CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- BOOTSTRAP --}}
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
 
-    <!-- Livewire Scripts -->
     @livewireScripts
+
 </body>
+
 </html>

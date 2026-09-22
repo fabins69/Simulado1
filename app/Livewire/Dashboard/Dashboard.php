@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Dashboard;
 
 use App\Models\Produto;
 use App\Models\Movimentacao;
@@ -28,7 +28,7 @@ class Dashboard extends Component
             ->get();
 
         return view(
-            'livewire.dashboard',
+            'livewire.dashboard.dashboard',
             compact(
                 'totalProdutos',
                 'totalEstoque',

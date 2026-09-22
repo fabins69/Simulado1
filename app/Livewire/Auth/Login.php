@@ -39,7 +39,7 @@ class Login extends Component
 
         request()->session()->regenerate();
 
-        return redirect()->route('produto.index');
+        return redirect()->route('dashboard');
     }
           
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\Caracteristica;
 
 use App\Models\CaracteristicaProduto;
+use App\Models\Produto;
 use Livewire\Component;
 
 class CaracteristicaCreate extends Component
@@ -32,7 +33,10 @@ class CaracteristicaCreate extends Component
     }
 
     public function render()
-    {
-        return view('livewire.caracteristica.caracteristica-create');
-    }
+{
+    return view('livewire.caracteristica.caracteristica-create', [
+        'produtos' => Produto::all() // Certifique-se de enviar os dados aqui
+    ]);
+}
+
 }

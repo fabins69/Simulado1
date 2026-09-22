@@ -2,6 +2,7 @@
 
 use App\Livewire\Auth\Login;
 use App\Livewire\Caracteristica\CaracteristicaCreate;
+use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Movimentacao\MovimentacaoCreate;
 use App\Livewire\Movimentacao\MovimentacaoIndex;
 use App\Livewire\Produto\ProdutoCreate;
@@ -19,6 +20,7 @@ Route::get('movimentacao', MovimentacaoIndex::class)->name('movimentacao.index')
 
 Route::get('caracteristica/create', CaracteristicaCreate::class)->name('caracteristica.create');
 
+Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
-
+Route::post('/logout', Login::class)->name('logout');
 Route::get('/', Login::class)->name('login');
