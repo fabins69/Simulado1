@@ -27,29 +27,22 @@
 
                 {{-- PRODUTO --}}
                 <div class="mb-3">
-                    <label for="produto_id" class="form-label">
-                        Produto
-                    </label>
-
+                    <label for="produto_id" class="form-label"> Produto </label>
                     <select id="produto_id" wire:model="produto_id"
                         class="form-select @error('produto_id') is-invalid @enderror">
-                        <option value="">
-                            Selecione um produto
-                        </option>
-
-                        @foreach ($produtos as $produto)
-                            <option value="{{ $produto->id }}">
-                                {{ $produto->nome }}
-                            </option>
-                        @endforeach
+                        <option value=""> Selecione um produto </option>
+                        @if (!empty($produtos))
+                            @foreach ($produtos as $produto)
+                                <!-- O Livewire se encarrega de marcar como 'selected' o item cujo value for igual ao $produto_id definido no mount() -->
+                                <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
+                            @endforeach
+                        @endif
                     </select>
-
                     @error('produto_id')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                        <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
                 </div>
+
 
 
                 <div class="row">
@@ -174,7 +167,7 @@
                 </div>
 
 
-                
+
 
 
                 {{-- DESCRIÇÃO --}}

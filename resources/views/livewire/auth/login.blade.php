@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-12 col-sm10 col-md-7 col-lg-5 col-xl-4">
                 <div class="text-center mb-4">
-                    <i class="bi bi-shop text-danger fs-1"></i>
+                    <i class="bi bi-shop text-info fs-1"></i>
                     <h1 class="h3 mt-2 mb-1">ConstruLar</h1>
                     <p class="text-secondary mb-0">Painel Administrativo</p>
 
@@ -61,7 +61,7 @@
                                     <label for="remember" class="form-check-label">Lembrar-me</label>    
                                 </div>
 
-                                <button type="submit" class="btn btn-danger w-100" wire:loading.attr='disabled'>
+                                <button type="submit" class="btn btn-info w-100" wire:loading.attr='disabled'>
                                     <span wire:loading.remove>Entrar</span>
                                     <span wire:loading>Entrando...</span>
                                 </button>

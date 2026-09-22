@@ -15,7 +15,7 @@ class UsuarioSeeder extends Seeder
     {
         User::create([
             'nome' => 'Admin',
-            'email' => 'admin@lanchonete.com',
+            'email' => 'admin@constrular.com',
             'telefone' => '999999999',
             'password' => 'password',
             'tipo' => User::TIPO_ADMIN
@@ -23,7 +23,7 @@ class UsuarioSeeder extends Seeder
 
         User::create([
             'nome' => 'Cliente',
-            'email' => 'cliente@lanchonete.com',
+            'email' => 'cliente@constrular.com',
             'telefone' => '888888888',
             'password' => 'password',
             'tipo' => User::TIPO_CLIENTE

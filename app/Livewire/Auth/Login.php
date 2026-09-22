@@ -28,14 +28,14 @@ class Login extends Component
 
         $user = Auth::user();
         
-        if(!$user->isAdmin()){
-            Auth::logout();
+        // if(!$user->isAdmin()){
+        //     Auth::logout();
 
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
+        //     request()->session()->invalidate();
+        //     request()->session()->regenerateToken();
 
-            session()->flash('error', 'não autorizado');
-        }
+        //     session()->flash('error', 'não autorizado');
+        // }
 
         request()->session()->regenerate();
 

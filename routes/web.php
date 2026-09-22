@@ -2,6 +2,8 @@
 
 use App\Livewire\Auth\Login;
 use App\Livewire\Caracteristica\CaracteristicaCreate;
+use App\Livewire\Caracteristica\CaracteristicaEdit;
+use App\Livewire\Caracteristica\CaracteristicaIndex;
 use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Movimentacao\MovimentacaoCreate;
 use App\Livewire\Movimentacao\MovimentacaoIndex;
@@ -19,6 +21,8 @@ Route::get('movimentacao/create', MovimentacaoCreate::class)->name('movimentacao
 Route::get('movimentacao', MovimentacaoIndex::class)->name('movimentacao.index');
 
 Route::get('caracteristica/create', CaracteristicaCreate::class)->name('caracteristica.create');
+Route::get('caracteristica', CaracteristicaIndex::class)->name('caracteristica.index');
+Route::get('/caracteristicas/{caracteristica}/edit', CaracteristicaEdit::class)->name('caracteristica.edit');
 
 Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
